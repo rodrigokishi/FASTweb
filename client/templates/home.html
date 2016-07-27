@@ -1,94 +1,153 @@
 <template name="home">
-    <div class="container">
-        <header>
-            <h1>FAST Online</h1>
-	    <b>FA</b>st <b>S</b>hot segmen<b>T</b>ation Tool
-        </header>
-	<br>
-        <div class="panel panel-default">
-            <!-- List group -->
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <label>Choose a video file to segment into shots</label>
-                    {{> upload_bootstrap  formData=specificFormData}}
-                </li>
-            </ul>
-        </div>
-
-        <div class="panel panel-default">
-	  <ul class="list-group">
-            <li class="list-group-item"> 
-              <label>Uploaded Videos</label>
-              <p>
-                  {{> uploadedInfo uploads }}
-              </p>
-            </li>
-          </ul>
-        </div>
-
-        <div class="panel panel-default">
-	  <ul class="list-group">
-            <li class="list-group-item"> 
-              <label>Segmentation Parameters</label>
-              <p>
-                  {{> globalSegmentationParameters }}
-              </p>
-            </li>
-          </ul>
-        </div>
-
-    </div>
+	<div class="container">
+			<div class="col-md-10 col-md-offset-1">
+				<div class="row">
+					<div class="col-md-11">
+						<header>
+							<h1>FAST Online</h1>
+							<b>FA</b>st <b>S</b>hot segmen<b>T</b>ation Tool
+						</header>
+					</div>
+					<div class="col-md-1">
+						{{> botao_config }}
+					</div>
+				</div>
+				<div class="row">
+					<div class="panel panel-default">
+						<!-- List group -->
+						<ul class="list-group">
+							<li class="list-group-item">
+								<label>Choose a video file to segment into shots</label>
+								{{> upload_bootstrap  formData=specificFormData}}
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="row">
+					<div class="panel panel-default">
+						<ul class="list-group">
+							<li class="list-group-item"> 
+							<label>Uploaded Videos</label>
+							<p>
+								{{> uploadedInfo uploads }}
+							</p>
+							</li>
+						</ul>
+					</div>
+				</div>
+		</div>
+	</div>
 </template>
 
 <template name="uploadedInfo">
-    <div class="documentList">
-        <ul class="list-inline filegrid">
-            {{#each this}}
-                <li class="documentItem">
-		    <a><img src="{{src}}"></a><br/>
-                    <label>{{ name }}</label> <br/>
-                    Size: {{ size }} MB<br/>
-		    {{#if segmentationTime}}
-                      Running time: {{ segTime }}s
-		    {{/if}}<br/>		    
+	<div class="documentList">
+		<ul class="list-inline filegrid">
+			{{#each this}}
+				<li class="documentItem">
+			<a><img src="{{src}}"></a><br/>
+					<label>{{ name }}</label> <br/>
+					Size: {{ size }}<br/>
+			{{#if segmentationTime}}
+					  Running time: {{ segTime }}s
+			{{/if}}<br/>		    
 
-		    {{>segmentationParameters}}
-                    {{#if _id}}
+			{{>segmentationParameters}}
+					{{#if _id}}
 			<div class="btn-group videoListItem" role="group" >
 				<button type="button" class="btn btn-primary btn-sm {{isEnabled}} segmentOrDownload">{{videoStatus}}</button>		
 				<button type="button" class="btn btn-danger btn-sm deleteVideo">Delete</button>
 			</div><br />
-                    {{/if}}
+					{{/if}}
 
 
-                </li> 
-            {{/each}}
-        </ul>
-    </div><br/>
+				</li> 
+			{{/each}}
+		</ul>
+	</div><br/>
+</template>
+
+
+<template name="botao_config">	
+	<button id="config" type="button" class="btn btn-default btn-lg" title="Change segmentation parameters">
+		<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+	</button>
+</template>
+
+<template name="configuracoesModal">
+	<div class="modal fade col-md-12" role="dialog">		
+		<div class="modal-content col-md-4 col-md-offset-4">
+			<div class="modal-header">
+				<h2 class="modal-title text-center">Segmentation parameters</h2>
+			</div>
+			<div class="modal-body">					
+				<div class="row">
+					<div class="col-md-5 col-md-offset-1">
+						Gradual Heuristic Strength:
+					</div>	
+					<div class="col-md-5 text-center">
+						<input type="number" step="1" min="0" class="parameterInput" {{bindSession "ghs"}} >
+					</div>
+				</div>					
+				<div class="row">
+					<div class="col-md-5 col-md-offset-1">
+						Histogram Intersection (HI):
+					</div>	
+					<div class="col-md-5 text-center">
+						<input type="number" step="0.01" min="0.01" max="0.99" class="parameterInput" {{bindSession "hi"}} >
+					</div>
+				</div>					
+				<div class="row">
+					<div class="col-md-5 col-md-offset-1">
+						Gradual Heuristic Strength:
+					</div>	
+					<div class="col-md-5 text-center">
+						<input type="number" step="1" min="0" class="parameterInput" {{bindSession "ghs"}} >
+					</div>
+				</div>					
+				<div class="row">
+					<div class="col-md-5 col-md-offset-1">
+						Euclidean Distance (ED):
+					</div>	
+					<div class="col-md-5 text-center">
+						<input type="number" step="0.01" min="0.01" max="1.99" class="parameterInput" {{bindSession "ed"}} >
+					</div>
+				</div>					
+				<div class="row">
+					<div class="col-md-5 col-md-offset-1">
+						Avg. HI Multiplier:
+					</div>	
+					<div class="col-md-5 text-center">
+						<input type="number" step="0.01" min="0.01" class="parameterInput" {{bindSession "ahim"}} >
+					</div>
+				</div>					
+				<div class="row">
+					<div class="col-md-5 col-md-offset-1">
+						Avg. ED Multiplier:
+					</div>	
+					<div class="col-md-5 text-center">
+						<input type="number" step="0.01" min="0.01" class="parameterInput" {{bindSession "aedm"}} >
+					</div>
+				</div>
+			</div>			
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>					
+		</div>
+	</div>
 </template>
 
 <template name="segmentationParameters">
 	<div class="dropdown videoListItem">
 	  <button class="btn {{isEnabled}} btn-default" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-	    Parameters
-	    <span class="caret"></span>
+		Parameters
+		<span class="caret"></span>
 	  </button>
 	  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-	    <li><a>Gradual Heuristic Strenght: {{parameters.ghs}}</a></li>
-	    <li><a>Histogram Intersection (HI): {{parameters.hi}}</a></li>
-	    <li><a>Euclidean Distance (ED): {{parameters.ed}}</a></li>
-	    <li><a>Avg. HI Multiplier: {{parameters.ahim}}</a></li>
-	    <li><a>Avg. ED Multiplier: {{parameters.aedm}}</a></li>
+		<li><a>Gradual Heuristic Strength: {{parameters.ghs}}</a></li>
+		<li><a>Histogram Intersection (HI): {{parameters.hi}}</a></li>
+		<li><a>Euclidean Distance (ED): {{parameters.ed}}</a></li>
+		<li><a>Avg. HI Multiplier: {{parameters.ahim}}</a></li>
+		<li><a>Avg. ED Multiplier: {{parameters.aedm}}</a></li>
 	  </ul>
 	</div>	    
-</template>
-
-<template name="globalSegmentationParameters">
-<div>
-    Gradual Heuristic Strenght: <input class="parameterInput" {{bindSession "ghs"}} ><br/>
-    Histogram Intersection: <input class="parameterInput" {{bindSession "hi"}} ><br/>
-    Euclidean Distance (ED): <input class="parameterInput" {{bindSession "ed"}} ><br/>
-    Average Histogram Intersection Multiplier: <input class="parameterInput" {{bindSession "ahim"}} ><br/>
-    Average Euclidean Distance Multiplier: <input class="parameterInput" {{bindSession "aedm"}} >
-</div>
 </template>

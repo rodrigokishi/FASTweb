@@ -3,7 +3,7 @@ Meteor.startup(function () {
     tmpDir: process.env.PWD + '/.uploads/tmp',
     uploadDir: process.env.PWD + '/.uploads/',
     checkCreateDirectories: true,
-    //acceptFileTypes: '/.(avi|mp4|mkv)$/i',
+    acceptFileTypes: /.(avi|mp4|mkv)$/i,
     getDirectory: function(fileInfo, formData) {
       if (formData && formData.directoryName != null) {
         return formData.directoryName;

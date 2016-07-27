@@ -4,7 +4,10 @@ Template['uploadedInfo'].helpers({
   },
   size: function(){
     //To show MB 
-    return (this.size/1000/1000).toFixed(2);
+    if (this.size > 1073741824) {
+        return ((this.size/1073741824).toFixed(2)).toString() + " GB";
+    }
+    return ((this.size/1048576).toFixed(2)).toString() + " MB";
   },
   src: function() {
     return 'file_icon.png';
@@ -32,6 +35,14 @@ Template['uploadedInfo'].helpers({
   },
 });
 
+Template["botao_config"].events({
+  'click #config' : function() {
+      Modal.show('configuracoesModal');
+  }
+  
+});
+
+
 Template['uploadedInfo'].events({
   'click .deleteVideo':function() {
     if (confirm('Are you sure?')) {
@@ -42,7 +53,7 @@ Template['uploadedInfo'].events({
       if(this.status == 0){
         //For some reason that I don't get, when this update is transfered to server side code, inside segmentVideo method, it doesn't work.
         Uploads.update({_id: this._id}, {$set : {status: 1}});  
-	var parameters = {ghs: Session.get("ghs"), hi: Session.get("hi"), ed: Session.get("ed"), ahim: Session.get("ahim"), aedm: Session.get("aedm")};      
+	      var parameters = {ghs: Session.get("ghs"), hi: Session.get("hi"), ed: Session.get("ed"), ahim: Session.get("ahim"), aedm: Session.get("aedm")};      
         Meteor.call('segmentVideo', this._id, parameters);  
       }else{
         window.open(this.segmentationUrl, '_system');

@@ -42,10 +42,7 @@ Meteor.methods({
     });            
     }
     
-    return execResult;
-
-    return 0;
-    
+    return execResult;   
   },
 })
 

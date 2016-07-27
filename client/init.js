@@ -2,7 +2,7 @@ Meteor.startup(function() {
   Uploader.finished = function(index, file) {
     Uploads.insert(file);
   };
-  sessionBind(Template.globalSegmentationParameters);
+  sessionBind(Template.configuracoesModal);
   Session.set('ghs', 3.0);
   Session.set('hi', 0.25); 
   Session.set('ed', 1.5); 
