@@ -1,0 +1,94 @@
+<template name="home">
+    <div class="container">
+        <header>
+            <h1>FAST Online</h1>
+	    <b>FA</b>st <b>S</b>hot segmen<b>T</b>ation Tool
+        </header>
+	<br>
+        <div class="panel panel-default">
+            <!-- List group -->
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <label>Choose a video file to segment into shots</label>
+                    {{> upload_bootstrap  formData=specificFormData}}
+                </li>
+            </ul>
+        </div>
+
+        <div class="panel panel-default">
+	  <ul class="list-group">
+            <li class="list-group-item"> 
+              <label>Uploaded Videos</label>
+              <p>
+                  {{> uploadedInfo uploads }}
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <div class="panel panel-default">
+	  <ul class="list-group">
+            <li class="list-group-item"> 
+              <label>Segmentation Parameters</label>
+              <p>
+                  {{> globalSegmentationParameters }}
+              </p>
+            </li>
+          </ul>
+        </div>
+
+    </div>
+</template>
+
+<template name="uploadedInfo">
+    <div class="documentList">
+        <ul class="list-inline filegrid">
+            {{#each this}}
+                <li class="documentItem">
+		    <a><img src="{{src}}"></a><br/>
+                    <label>{{ name }}</label> <br/>
+                    Size: {{ size }} MB<br/>
+		    {{#if segmentationTime}}
+                      Running time: {{ segTime }}s
+		    {{/if}}<br/>		    
+
+		    {{>segmentationParameters}}
+                    {{#if _id}}
+			<div class="btn-group videoListItem" role="group" >
+				<button type="button" class="btn btn-primary btn-sm {{isEnabled}} segmentOrDownload">{{videoStatus}}</button>		
+				<button type="button" class="btn btn-danger btn-sm deleteVideo">Delete</button>
+			</div><br />
+                    {{/if}}
+
+
+                </li> 
+            {{/each}}
+        </ul>
+    </div><br/>
+</template>
+
+<template name="segmentationParameters">
+	<div class="dropdown videoListItem">
+	  <button class="btn {{isEnabled}} btn-default" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+	    Parameters
+	    <span class="caret"></span>
+	  </button>
+	  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+	    <li><a>Gradual Heuristic Strenght: {{parameters.ghs}}</a></li>
+	    <li><a>Histogram Intersection (HI): {{parameters.hi}}</a></li>
+	    <li><a>Euclidean Distance (ED): {{parameters.ed}}</a></li>
+	    <li><a>Avg. HI Multiplier: {{parameters.ahim}}</a></li>
+	    <li><a>Avg. ED Multiplier: {{parameters.aedm}}</a></li>
+	  </ul>
+	</div>	    
+</template>
+
+<template name="globalSegmentationParameters">
+<div>
+    Gradual Heuristic Strenght: <input class="parameterInput" {{bindSession "ghs"}} ><br/>
+    Histogram Intersection: <input class="parameterInput" {{bindSession "hi"}} ><br/>
+    Euclidean Distance (ED): <input class="parameterInput" {{bindSession "ed"}} ><br/>
+    Average Histogram Intersection Multiplier: <input class="parameterInput" {{bindSession "ahim"}} ><br/>
+    Average Euclidean Distance Multiplier: <input class="parameterInput" {{bindSession "aedm"}} >
+</div>
+</template>

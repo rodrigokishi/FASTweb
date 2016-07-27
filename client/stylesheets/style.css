@@ -1,0 +1,55 @@
+/* CSS declarations go here */
+
+/* HOME Template */
+
+.documentList
+{
+    overflow-x:auto;
+    /*overflow-y:visible;*/
+    /*overflow:visible;*/
+    height:225px;
+    width:100%;
+    padding: 0 15px;
+}
+
+.documentItem
+{
+    border:1px solid black;
+    padding:10px;
+    height:220px;
+    width: 160px;
+    overflow: hidden;
+    text-align: center;
+    margin: 3px
+}
+
+.documentItem label {
+    font-size: x-small;
+}
+
+.list-inline {
+    white-space:nowrap;
+}
+
+.documentItem{
+
+  overflow:visible;
+}
+
+.filegrid{
+    justify-content: left;
+    align-content: center;
+    display:flex;
+    flex-flow: row wrap;
+}
+
+.videoListItem
+{
+   margin: 5px;
+}
+
+.parameterInput{
+ width: 8%;
+}
+
+
