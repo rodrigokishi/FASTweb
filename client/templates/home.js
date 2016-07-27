@@ -1,3 +1,9 @@
+Template['home'].helpers({
+ myCallbacks: function(){
+    return {formData: function() { return { user: Meteor.user().username} },}
+  },
+});
+
 Template['uploadedInfo'].helpers({
   segTime: function(){
     return this.segmentationTime.toFixed(2);

@@ -16,6 +16,7 @@ Meteor.methods({
       UploadServer.delete(upload.outputFileName);
     }
     Uploads.remove(_id);
+    //Verify if the user directory is empty, if yes, delete it.
   },
   'segmentVideo': function(_id, params) {
     check(_id, String);
