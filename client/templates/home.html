@@ -8,14 +8,16 @@
 							<b>FA</b>st <b>S</b>hot segmen<b>T</b>ation Tool
 						</header>
 					</div>
-					<div class="col-md-3 text-right">						
-						{{> loginButtons}}
-					</div>				
-					{{#if currentUser}}
-						<div class="col-md-1">
-							{{> botao_config }}
+					<div class="col-md-4">
+						<div class="row text-right">
+							{{> loginButtons}}
 						</div>
-					{{/if}}
+						<div class="row">
+							{{#if currentUser}}
+								{{> botao_config }}
+							{{/if}}							
+						</div>
+					</div>
 				</div>
 				{{#if currentUser}}
 					<div class="row">
@@ -43,7 +45,8 @@
 					</div>
 				{{else}}
 					<div class="row text-center">
-						<h5>Please sign in to continue.</h5>
+						<br>
+						<h3>Please sign in to continue.</h3>
 					</div>						
 				{{/if}}
 			</div>
@@ -79,7 +82,7 @@
 
 
 <template name="botao_config">	
-	<button id="config" type="button" class="btn btn-default btn-lg" title="Change segmentation parameters">
+	<button id="config" type="button" class="btn btn-default btn-lg pull-right" title="Change segmentation parameters">
 		<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
 	</button>
 </template>
