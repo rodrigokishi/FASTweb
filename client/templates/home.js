@@ -70,28 +70,3 @@ Template['segmentationParameters'].helpers({
     }    
   },
 });
-
-/*Template['globalSegmentationParameters'].helpers({
-  ghs: function(){    
-      return Session.get("ghs");
-  },
-  hi: function(){    
-      return Session.get("hi");
-  },
-  ed: function(){    
-      return Session.get("ed");
-  },
-  ahim: function(){    
-      return Session.get("ahim");
-  },
-  aedm: function(){    
-      return Session.get("aedm");
-  },
-});*/
-
-/*Template['globalSegmentationParameters'].events({
-  'change .ghs':function(event) {
-    Session.set('ghs', this.value);
-    console.log(this.value);
-  },
-});*/
