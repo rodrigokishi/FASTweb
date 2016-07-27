@@ -76,5 +76,3 @@ Template['segmentationParameters'].helpers({
     }    
   },
 });
-
-
