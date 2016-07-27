@@ -8,17 +8,21 @@
 							<b>FA</b>st <b>S</b>hot segmen<b>T</b>ation Tool
 						</header>
 					</div>
+						{{> loginButtons}}
+{{#if currentUser}}
 					<div class="col-md-1">
 						{{> botao_config }}
 					</div>
+{{/if}}
 				</div>
+{{#if currentUser}}
 				<div class="row">
 					<div class="panel panel-default">
 						<!-- List group -->
 						<ul class="list-group">
 							<li class="list-group-item">
 								<label>Choose a video file to segment into shots</label>
-								{{> upload_bootstrap  formData=specificFormData}}
+								{{> upload_bootstrap  callbacks=myCallbacks}}
 							</li>
 						</ul>
 					</div>
@@ -35,6 +39,11 @@
 						</ul>
 					</div>
 				</div>
+{{else}}
+	<div><br/><br/>
+		Please sign in to continue.
+	</div>
+{{/if}}
 		</div>
 	</div>
 </template>

@@ -1,12 +1,12 @@
 Meteor.startup(function () {
   UploadServer.init({
-    tmpDir: process.env.PWD + '/.uploads/tmp',
+    tmpDir: process.env.PWD + '/.uploads/',
     uploadDir: process.env.PWD + '/.uploads/',
     checkCreateDirectories: true,
     acceptFileTypes: /.(avi|mp4|mkv)$/i,
     getDirectory: function(fileInfo, formData) {
-      if (formData && formData.directoryName != null) {
-        return formData.directoryName;
+      if (formData && formData.user != null) {        
+        return formData.user + '/';	
       }
       return "";
     },
@@ -17,7 +17,6 @@ Meteor.startup(function () {
       return fileInfo.name;
     },
     finished: function(fileInfo, formData) {
-
     }
   });
 });

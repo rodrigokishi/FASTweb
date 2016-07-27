@@ -1,6 +1,10 @@
+Accounts.ui.config({
+  passwordSignupFields: 'USERNAME_ONLY',
+});
+
 Meteor.startup(function() {
   Uploader.finished = function(index, file) {
-    Uploads.insert(file);
+    Uploads.insert(file);  
   };
   sessionBind(Template.configuracoesModal);
   Session.set('ghs', 3.0);
