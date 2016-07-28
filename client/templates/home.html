@@ -32,15 +32,15 @@
 					</div>
 					
 					<div class="row">
-						<div class="panel panel-default">
-							<ul class="list-group">
-								<li class="list-group-item"> 
-									<label>Uploaded Videos</label>
-									<p>
-										{{> uploadedInfo uploads }}
-									</p>
-								</li>
-							</ul>
+						<div class="panel panel-default lista">
+	
+								<ul class="list-group">
+									<li class="list-group-item">
+										<label>Uploaded videos</label>
+										{{> listaUploads }}
+									</li>
+								</ul>						
+							
 						</div>
 					</div>
 				{{else}}
@@ -53,33 +53,59 @@
 	</div>
 </template>
 
-<template name="uploadedInfo">
-	<div class="documentList">
-		<ul class="list-inline filegrid">
-			{{#each this}}
-				<li class="documentItem">
-			<a><img src="{{src}}"></a><br/>
-					<label>{{ name }}</label> <br/>
-					Size: {{ size }}<br/>
-			{{#if segmentationTime}}
-					  Running time: {{ segTime }}s
-			{{/if}}<br/>		    
 
+<template name="elemento">		
+	<div>				
+		<div class="row text-center">
+			<img src="{{src}}">
+		</div>
+		<div class="row text-center">
+			<h6><b>{{ name }}</b></h6>
+			<p>Size: {{ size }}</p>
+			<p>{{ segTime }}</p>
+		</div>
+		<div class="row">
 			{{>segmentationParameters}}
-					{{#if _id}}
-			<div class="btn-group videoListItem" role="group" >
-				<button type="button" class="btn btn-primary btn-sm {{isEnabled}} segmentOrDownload">{{videoStatus}}</button>		
-				<button type="button" class="btn btn-danger btn-sm deleteVideo">Delete</button>
-			</div><br />
-					{{/if}}
-
-
-				</li> 
-			{{/each}}
-		</ul>
-	</div><br/>
+		</div>
+		{{#if _id}}
+			<div class="row text-center">	
+				<div class="btn-group" role="group">
+					<button type="button" class="btn btn-sm {{classesBotao}} {{isEnabled}} segmentOrDownload">
+						{{videoStatus}}
+					</button>
+					<button type="button" class="btn btn-danger btn-sm {{isEnabled}} deleteVideo">
+						<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete
+					</button>
+				</div>
+			</div>
+		{{/if}}
+	</div>	
 </template>
 
+
+<template name="listaUploads">	
+	{{#each (parserLinha uploads)}}
+		{{> uploadRow}}	
+	{{else}}
+		<div class="row text-center">
+			<h3>Nothing here :(</h3>
+			<br>
+		</div>	
+	{{/each}}
+</template>
+
+
+<template name="uploadRow">
+	<div class="row">
+		<div class="col-md-12">
+			{{#each row}}
+				<div class="col-md-3 item">
+					{{> elemento this}}
+				</div>
+			{{/each}}
+		</div>
+	</div>	
+</template>
 
 <template name="botao_config">	
 	<button id="config" type="button" class="btn btn-default btn-lg pull-right" title="Change segmentation parameters">
@@ -143,17 +169,20 @@
 </template>
 
 <template name="segmentationParameters">
-	<div class="dropdown videoListItem">
-	  <button class="btn {{isEnabled}} btn-default" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-		Parameters
-		<span class="caret"></span>
-	  </button>
-	  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-		<li><a>Gradual Heuristic Strength: {{parameters.ghs}}</a></li>
-		<li><a>Histogram Intersection (HI): {{parameters.hi}}</a></li>
-		<li><a>Euclidean Distance (ED): {{parameters.ed}}</a></li>
-		<li><a>Avg. HI Multiplier: {{parameters.ahim}}</a></li>
-		<li><a>Avg. ED Multiplier: {{parameters.aedm}}</a></li>
-	  </ul>
-	</div>	    
+	<div class="col-md-12 text-center">
+		<div class="dropdown videoListItem">
+			<button class="btn {{isEnabled}} btn-default" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+				Parameters
+				<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+				<li><a>Gradual Heuristic Strength: {{parameters.ghs}}</a></li>
+				<li><a>Histogram Intersection (HI): {{parameters.hi}}</a></li>
+				<li><a>Euclidean Distance (ED): {{parameters.ed}}</a></li>
+				<li><a>Avg. HI Multiplier: {{parameters.ahim}}</a></li>
+				<li><a>Avg. ED Multiplier: {{parameters.aedm}}</a></li>
+			</ul>
+		</div>	
+	</div>
+    
 </template>
